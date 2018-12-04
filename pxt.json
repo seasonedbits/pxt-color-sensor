@@ -1,18 +1,12 @@
 {
-    "name": "pxt-tcs3200-color-sensor",
-    "version": "0.0.4",
-    "description": "",
-    "dependencies": {
-        "core": "*",
-        "radio": "*"
-    },
-    "files": [
-        "README.md",
-        "main.ts"
-    ],
-    "testFiles": [
-        "test.ts"
-    ],
-    "public": false,
-    "additionalFilePaths": []
+  "name": "pxt-color-sensor",
+  "version": "0.1.0",
+  "description": "",
+  "dependencies": {
+    "core": "*"
+  },
+  "files": ["README.md", "main.ts"],
+  "testFiles": ["test.ts"],
+  "public": false,
+  "additionalFilePaths": []
 }
