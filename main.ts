@@ -1,4 +1,4 @@
-enum color {
+enum CHANNEL {
   //%block="RED"
   RED,
   //%block="GREEN"
@@ -23,10 +23,19 @@ namespace TCS3200 {
 
   /**
    * Calibrate the sensor.
-   * @param t waiting time; eg: 50, 10, 30, 100, 1000
+   * The longer `t` is, the more accurate the reading will be.
+   * But `calibrate()` and `readColor()` will block for longer.
+   *
+   * @param S0 S0 pin; eg: DigitalPin.P12
+   * @param S1 S1 pin; eg: DigitalPin.P2
+   * @param S2 S2 pin; eg: DigitalPin.P14
+   * @param S3 S3 pin; eg: DigitalPin.P15
+   * @param OUT OUT pin; eg: DigitalPin.P16
+   * @param t waiting time; eg: 200, 50, 100, 1000
+   *
    */
-  //%block="Calibrate|S0 %S0|S1 %S1|S3 %S3|S2 %S2|OUT %OUT|time (ms)%t"
-  //%blockExternalInputs=true
+  //% block="Calibrate|S0 %S0|S1 %S1|S3 %S3|S2 %S2|OUT %OUT|time (ms)%t"
+  //% blockExternalInputs=true
   export function calibrate(
     S0: DigitalPin,
     S1: DigitalPin,
@@ -67,23 +76,26 @@ namespace TCS3200 {
     basic.clearScreen();
   }
 
-  //%block="Read Color: %choice"
-  export function readColor(filter: color): number {
+  /**
+   * Read color for a specific channel.
+   */
+  //% block="Read Color: %channel"
+  export function readColor(channel: CHANNEL): number {
     let ret: number;
-    switch (filter) {
-      case color.RED:
+    switch (channel) {
+      case CHANNEL.RED:
         pins.digitalWritePin(s2, 0);
         pins.digitalWritePin(s3, 0);
         resetWavecount(time);
         ret = wavecount * r_factor;
         break;
-      case color.GREEN:
+      case CHANNEL.GREEN:
         pins.digitalWritePin(s2, 1);
         pins.digitalWritePin(s3, 1);
         resetWavecount(time);
         ret = wavecount * g_factor;
         break;
-      case color.BLUE:
+      case CHANNEL.BLUE:
         pins.digitalWritePin(s2, 0);
         pins.digitalWritePin(s3, 1);
         resetWavecount(time);
